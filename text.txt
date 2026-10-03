@@ -1,0 +1,462 @@
+
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ڕۆژی لە دایک بوونت پیرۆزبێت بڕوای من 💖</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Vazirmatn Font for Kurdish Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti for Celebration Effects -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #fbcfe8 100%);
+            min-height: 100vh;
+            color: #831843;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 15px 35px rgba(244, 114, 182, 0.2);
+        }
+        .glass-modal {
+            background: rgba(255, 241, 242, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(244, 114, 182, 0.4);
+        }
+        .floating-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10;
+            animation: floatUp 8s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.6) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.9; }
+            80% { opacity: 0.9; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+        .flame {
+            width: 14px;
+            height: 22px;
+            background: linear-gradient(to top, #ff7e5f, #feb47b, #ffffff);
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flicker 0.5s infinite alternate;
+            box-shadow: 0 0 14px #ff7e5f;
+        }
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-3deg); }
+            100% { transform: translateX(-50%) scale(1.18) rotate(3deg); }
+        }
+        .candle-off .flame { display: none; }
+        .lyrics-box {
+            font-style: italic;
+            font-family: Georgia, serif;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body class="relative flex flex-col justify-between min-h-screen text-pink-950">
+
+    <!-- Floating Background Particles -->
+    <div id="heartsContainer"></div>
+
+    <!-- Audio Player Controls -->
+    <div class="fixed top-4 left-4 z-50 flex flex-col sm:flex-row gap-2">
+        <button id="bdayBtn" onclick="toggleBdayPiano()" class="glass-card flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-pink-700 hover:bg-white transition-all border border-pink-300 shadow-md">
+            <i class="fa-solid fa-cake-candles text-pink-500"></i>
+            <span id="bdayText">پیانۆی لەدایکبوون 🎂</span>
+        </button>
+
+        <button id="romanticBtn" onclick="toggleAdeleAudio()" class="glass-card flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-pink-700 hover:bg-white transition-all border border-pink-300 shadow-md">
+            <i class="fa-solid fa-heart text-rose-500"></i>
+            <span id="romanticText">Lovesong - Adele 🎵</span>
+        </button>
+    </div>
+
+    <main class="relative z-20 container mx-auto px-4 py-10 max-w-4xl flex-grow flex flex-col items-center justify-center text-center">
+
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card border-pink-300 text-pink-700 text-xs sm:text-sm font-bold mb-6">
+            <span>💍</span>
+            <span>تایبەتترین پەیام بۆ کەسی ژیانم </span>
+            <span>🫂</span>
+        </div>
+
+        <!-- Main Heading -->
+        <h1 class="text-4xl sm:text-6xl font-black text-pink-600 mb-4 leading-tight drop-shadow-sm">
+            ڕۆژی لە دایک بوونت پیرۆزبێت بڕوای من 💖✨
+        </h1>
+
+        <p class="text-pink-800 text-sm sm:text-lg max-w-xl mb-6 font-medium leading-relaxed">
+            لەم ڕۆژە زۆر ناسک و جوانەدا، هیوادارم دڵت هەمیشە پڕ بێت لە ئارامی، خەندە و خۆشەویستی بێ کۆتایی! 🌸✨
+        </p>
+
+        <!-- Adele Lyrics Highlight -->
+        <div class="glass-card px-6 py-4 rounded-2xl mb-8 border-pink-300 max-w-lg">
+            <p class="lyrics-box text-xs sm:text-sm text-pink-700 font-semibold text-center" dir="ltr">
+                "Whenever I'm alone with you, you make me feel like I am home again... However far away, I will always love you."
+            </p>
+            <span class="block text-[11px] text-pink-500 font-bold mt-1 text-center">— Adele (Lovesong) 💕</span>
+        </div>
+
+        <!-- Countdown Timer Section -->
+        <div class="glass-card p-6 rounded-3xl w-full max-w-lg mb-10 border-pink-200">
+            <h3 class="text-xs sm:text-sm uppercase tracking-widest text-pink-600 font-bold mb-4 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-clock"></i> ماوە بۆ ڕۆژی لەدایکبوونت بڕواکەم (5/10/2026)
+            </h3>
+            <div class="grid grid-cols-4 gap-2 text-center">
+                <div class="bg-white/80 p-3 rounded-2xl border border-pink-200">
+                    <span id="days" class="text-2xl sm:text-3xl font-black text-pink-600">00</span>
+                    <span class="block text-[10px] sm:text-xs text-pink-700 font-bold mt-1">ڕۆژ</span>
+                </div>
+                <div class="bg-white/80 p-3 rounded-2xl border border-pink-200">
+                    <span id="hours" class="text-2xl sm:text-3xl font-black text-rose-500">00</span>
+                    <span class="block text-[10px] sm:text-xs text-pink-700 font-bold mt-1">کاتژمێر</span>
+                </div>
+                <div class="bg-white/80 p-3 rounded-2xl border border-pink-200">
+                    <span id="minutes" class="text-2xl sm:text-3xl font-black text-pink-600">00</span>
+                    <span class="block text-[10px] sm:text-xs text-pink-700 font-bold mt-1">خولەک</span>
+                </div>
+                <div class="bg-white/80 p-3 rounded-2xl border border-pink-200">
+                    <span id="seconds" class="text-2xl sm:text-3xl font-black text-rose-500">00</span>
+                    <span class="block text-[10px] sm:text-xs text-pink-700 font-bold mt-1">چرکە</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Cake Section -->
+        <div class="glass-card p-8 rounded-3xl w-full max-w-md mb-10 flex flex-col items-center relative border-pink-200">
+            <h3 class="text-sm font-bold text-pink-700 mb-6">کلیک لەسەر مۆمەکە بکە تا فووی لێ بکەیت! 🕯✨</h3>
+            
+            <div id="cakeContainer" onclick="blowCandle()" class="cursor-pointer relative my-4 transition-transform hover:scale-105 active:scale-95">
+                <div id="candle" class="w-4 h-12 bg-gradient-to-t from-pink-200 to-white mx-auto rounded-t-sm relative shadow-sm">
+                    <div class="flame"></div>
+                </div>
+                <div class="w-36 h-20 bg-gradient-to-r from-pink-300 via-rose-300 to-pink-300 rounded-t-3xl relative shadow-md flex items-center justify-center border-t-4 border-white">
+                    <span class="text-3xl">💖🎂💖</span>
+                </div>
+                <div class="w-44 h-8 bg-rose-400/80 rounded-b-xl mx-auto shadow-sm border-t border-white/50 flex items-center justify-center text-xs text-white font-bold">
+                    بڕواممم
+                </div>
+            </div>
+            <p id="cakeStatus" class="text-xs text-pink-600 font-bold mt-2">مۆمەکە هەڵکراوە! ئاواتێک بخوازە ✨</p>
+        </div>
+
+        <!-- Interactive Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center gap-4 w-full justify-center mb-8">
+            <button onclick="openSurpriseModal()" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-base sm:text-lg rounded-2xl transition-all shadow-lg flex items-center justify-center gap-3">
+                <i class="fa-solid fa-envelope text-xl"></i>
+                <span>نامەیەک 💘</span>
+            </button>
+
+            <button onclick="openLetterModal()" class="w-full sm:w-auto px-8 py-4 glass-card hover:bg-white/90 text-pink-700 font-bold text-base sm:text-lg rounded-2xl transition-all border border-pink-300 flex items-center justify-center gap-3 shadow-md">
+                <i class="fa-solid fa-heart-pulse text-xl text-rose-500"></i>
+                <span>نامەیەک لە ناخی دڵمەوە</span>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Modal 1: Short Message -->
+    <div id="surpriseModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-pink-950/40 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-modal max-w-md w-full p-6 sm:p-8 rounded-3xl relative transform scale-95 transition-transform duration-300 shadow-2xl text-center border-pink-300">
+            <button onclick="closeSurpriseModal()" class="absolute top-4 left-4 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-pink-700 flex items-center justify-center shadow-sm">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="text-5xl mb-4 animate-bounce">💘</div>
+            <h3 class="text-2xl font-black text-pink-600 mb-2">دیارییەکی بچووک بۆ تۆ!</h3>
+            <p class="text-sm text-pink-800 leading-relaxed font-medium mb-6">
+                تۆ گەورەترین و جوانترین دیاری ژیانی منی! هیواخوازم هەموو ڕۆژێکی تەمەنت پڕ بێت لە خەندەی گەش و بەختەوەری! 💍💖🫂
+            </p>
+            <div class="text-3xl space-x-2 space-x-reverse mb-6">
+                <span>💍</span> <span>🫂</span> <span>🌸</span> <span>💖</span> <span>✨</span>
+            </div>
+
+            <button onclick="closeSurpriseModal()" class="w-full py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-xl text-sm font-bold shadow-md">
+               💍 💕
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal 2: Poem & Adele Lyrics -->
+    <div id="letterModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-pink-950/40 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-modal max-w-lg w-full p-6 sm:p-8 rounded-3xl relative transform scale-95 transition-transform duration-300 shadow-2xl text-right border-pink-300 max-h-[85vh] overflow-y-auto">
+            <button onclick="closeLetterModal()" class="absolute top-4 left-4 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-pink-700 flex items-center justify-center shadow-sm">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-6 border-b border-pink-200 pb-4">
+                <div class="w-12 h-12 rounded-2xl bg-pink-200 flex items-center justify-center text-pink-600 text-2xl">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-black text-pink-600">نامەیەک لە ناخی دڵمەوە</h3>
+                    <p class="text-xs text-pink-700 font-bold">تایبەت بۆ بوبوەکەی من 💍</p>
+                </div>
+            </div>
+
+            <!-- Kurdish Poetic Letter -->
+            <div class="text-pink-900 space-y-3 text-sm sm:text-base leading-relaxed font-medium whitespace-pre-line mb-6">
+کە تۆ هاتیتە دنیاوە..
+ئاسمان ڕەنگی ئارامی گرت و
+جیهان لە بەرچاوم بوو بە بەشێکی تر.
+تۆ تەنها لەدایک نەبوویت
+بەڵکو خۆشەویستیت لەگەڵ خۆتدا هێنا و
+ژینت لە بەرچاو شیرین کردم
+لەو ڕۆژەوەی هەییت،
+تۆ بوویتە گیانێک بۆ ڕۆحم و
+تەنها بە بوونی تۆ ژیان مانا دەگرێت.
+ئەگەر لەم دنیایەدا هەموو شتێک ڕێگەی گۆڕان بگرێت،
+دڵی من هەمیشە لەسەر پەیمانی خۆیەتی
+لە ساڵیادی هاتنتدا، لە ناو هەموو جوانییەکانی جیهاندا،
+بێجگە لە دڵ و ڕۆحم شتێک شک نابەم لێرە..
+ئەم دووانەم هەیە و ئەوانیش بۆ تۆ بە دیاری...
+ڕۆژی لەدایکبوونت پیرۆز، ئارامیی ڕۆحم و تەواوی دنیام شیرینترین کەسی ژیانم 💖
+            </div>
+
+            <!-- English Adele Song Lyrics Section -->
+            <div class="glass-card p-4 rounded-2xl border-pink-300 text-center text-xs sm:text-sm text-pink-800 space-y-2 mb-4" dir="ltr">
+                <p class="font-bold text-pink-600">🎵 Adele - Lovesong 🎵</p>
+                <p class="lyrics-box italic">"Whenever I'm alone with you<br>You make me feel like I am home again<br>Whenever I'm alone with you<br>You make me feel like I am whole again"</p>
+                <p class="lyrics-box italic">"However far away, I will always love you<br>However long I stay, I will always love you<br>Whatever words I say, I will always love you<br>I will always love you"</p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-pink-200 flex justify-between items-center">
+                <span class="text-xs text-pink-600 font-bold">🎵 Adele - Lovesong Playing</span>
+                <button onclick="closeLetterModal()" class="px-6 py-2.5 bg-pink-500 hover:bg-pink-600 text-white rounded-xl text-sm font-bold shadow-md">
+                    داخستن 💕
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direct Audio element for Adele - Lovesong -->
+    <audio id="adeleAudio" loop preload="auto">
+        <source src="https://ia800702.us.archive.org/30/items/AdeleLovesong/Adele%20-%20Lovesong.mp3" type="audio/mpeg">
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Trio_Targownik/Live_at_the_Klezmer_Festival/Trio_Targownik_-_01_-_Lovesong.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Floating Particle Generator
+        function createFloatingElements() {
+            const container = document.getElementById('heartsContainer');
+            const icons = ['💖', '💍', '🫂', '🌸', '✨', '💕', '🎀'];
+            for (let i = 0; i < 22; i++) {
+                const el = document.createElement('div');
+                el.className = 'floating-element text-lg sm:text-2xl';
+                el.innerText = icons[Math.floor(Math.random() * icons.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDelay = (Math.random() * 8) + 's';
+                el.style.animationDuration = (6 + Math.random() * 6) + 's';
+                container.appendChild(el);
+            }
+        }
+        createFloatingElements();
+
+        // Countdown Timer Logic
+        function startCountdown() {
+            const targetDate = new Date('2026-10-05T00:00:00').getTime();
+            setInterval(() => {
+                const now = new Date().getTime();
+                const difference = targetDate - now;
+                if (difference > 0) {
+                    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                    document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+                    document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+                    document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+                    document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+                }
+            }, 1000);
+        }
+        startCountdown();
+
+        // Audio Context for Web Audio Synthesizer
+        let audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        // --- Happy Birthday Piano Synthesizer ---
+        let isBdayPlaying = false;
+        let bdayTimeout = null;
+
+        const bdayNotes = [
+            { note: 261.63, duration: 0.35 }, { note: 261.63, duration: 0.25 },
+            { note: 293.66, duration: 0.6 },  { note: 261.63, duration: 0.6 },
+            { note: 349.23, duration: 0.6 },  { note: 329.63, duration: 1.0 },
+            
+            { note: 261.63, duration: 0.35 }, { note: 261.63, duration: 0.25 },
+            { note: 293.66, duration: 0.6 },  { note: 261.63, duration: 0.6 },
+            { note: 392.00, duration: 0.6 },  { note: 349.23, duration: 1.0 },
+
+            { note: 261.63, duration: 0.35 }, { note: 261.63, duration: 0.25 },
+            { note: 523.25, duration: 0.6 },  { note: 440.00, duration: 0.6 },
+            { note: 349.23, duration: 0.6 },  { note: 329.63, duration: 0.6 },
+            { note: 293.66, duration: 1.0 },
+
+            { note: 466.16, duration: 0.35 }, { note: 466.16, duration: 0.25 },
+            { note: 440.00, duration: 0.6 },  { note: 349.23, duration: 0.6 },
+            { note: 392.00, duration: 0.6 },  { note: 349.23, duration: 1.2 }
+        ];
+
+        function playPianoTone(freq, duration) {
+            const ctx = getAudioContext();
+            if (!ctx) return;
+            try {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                
+                gain.gain.setValueAtTime(0.35, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + duration);
+            } catch(e) { console.log(e); }
+        }
+
+        function playBdayMelody() {
+            stopAdeleAudio();
+            stopBdayPiano();
+
+            isBdayPlaying = true;
+            document.getElementById('bdayText').innerText = "لە لێداندایە... 🎵";
+
+            let step = 0;
+            function nextNote() {
+                if (!isBdayPlaying) return;
+                if (step >= bdayNotes.length) {
+                    step = 0;
+                }
+                const n = bdayNotes[step];
+                playPianoTone(n.note, n.duration);
+                step++;
+                bdayTimeout = setTimeout(nextNote, n.duration * 550);
+            }
+            nextNote();
+        }
+
+        function stopBdayPiano() {
+            isBdayPlaying = false;
+            if (bdayTimeout) clearTimeout(bdayTimeout);
+            document.getElementById('bdayText').innerText = "پیانۆی لەدایکبوون 🎂";
+        }
+
+        function toggleBdayPiano() {
+            if (isBdayPlaying) {
+                stopBdayPiano();
+            } else {
+                playBdayMelody();
+            }
+        }
+
+        // --- Adele MP3 Audio Player ---
+        const adeleAudio = document.getElementById('adeleAudio');
+        let isAdelePlaying = false;
+
+        function playAdeleAudio() {
+            stopBdayPiano();
+            adeleAudio.play().then(() => {
+                isAdelePlaying = true;
+                document.getElementById('romanticText').innerText = "لە لێداندایە... 🎶";
+            }).catch(err => {
+                console.log("Audio playback error:", err);
+                // Fallback toggle state
+                isAdelePlaying = false;
+                document.getElementById('romanticText').innerText = "Lovesong - Adele 🎵";
+            });
+        }
+
+        function stopAdeleAudio() {
+            adeleAudio.pause();
+            isAdelePlaying = false;
+            document.getElementById('romanticText').innerText = "Lovesong - Adele 🎵";
+        }
+
+        function toggleAdeleAudio() {
+            if (isAdelePlaying) {
+                stopAdeleAudio();
+            } else {
+                playAdeleAudio();
+            }
+        }
+
+        // Candle Blowing Action
+        let candleBlown = false;
+        function blowCandle() {
+            const candle = document.getElementById('candle');
+            const status = document.getElementById('cakeStatus');
+            if (!candleBlown) {
+                candle.classList.add('candle-off');
+                status.innerText = "ئاواتەکەت هاتبەدی! ڕۆژی لەدایکبوونت پیرۆز 🥳✨";
+                candleBlown = true;
+                confetti({ particleCount: 160, spread: 100, origin: { y: 0.6 } });
+                playBdayMelody();
+            }
+        }
+
+        // Modal Logic
+        function openSurpriseModal() {
+            const modal = document.getElementById('surpriseModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-95');
+            modal.querySelector('div').classList.add('scale-100');
+            confetti({ particleCount: 90, spread: 70, origin: { y: 0.6 } });
+        }
+
+        function closeSurpriseModal() {
+            const modal = document.getElementById('surpriseModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-95');
+        }
+
+        function openLetterModal() {
+            const modal = document.getElementById('letterModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-95');
+            modal.querySelector('div').classList.add('scale-100');
+            playAdeleAudio();
+        }
+
+        function closeLetterModal() {
+            const modal = document.getElementById('letterModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-95');
+        }
+    </script>
+</body>
+</html>
